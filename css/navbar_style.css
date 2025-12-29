@@ -1,0 +1,69 @@
+body {
+    margin: 0;
+    font-family: "BBH Bogle", sans-serif;
+}
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: beige;
+    padding: 8px;
+}
+
+.navbar__logo {
+    font-size: 1.4rem;
+}
+
+.navbar__menu {
+    display: flex;
+    list-style: none;
+    padding: 0;
+}
+
+.navbar__menu li {
+    padding: 8px 12px;
+} 
+
+.navbar__menu li:hover {
+    background-color: white;
+    border-radius: 8px;
+}
+
+.navbar__icons {
+    list-style: none;
+    display: flex;
+    padding-left: 0;
+}
+
+.navbar__icons li {
+    padding: 8px 4px;
+}
+
+@media (max-width: 600px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 16px;
+    }
+
+    .navbar__menu {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .navbar__menu li {
+        width: 100%;
+        text-align: center;
+    }
+
+    .navbar__icons {
+        justify-content: center;
+        width: 100%;
+    }
+}

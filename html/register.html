@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form>
+    <label for="email">Email</label>
+    <input
+        id="email" type="email" required
+        placeholder="example@email.com"
+    >
+    <br>
+    <label for="phone">Phone</label>
+    <input
+        id="phone" type="text" required
+        placeholder="010-1234-5678"
+        pattern="010-[0-9]{4}-[0-9]{4}"
+        title="010-1234-5678 형식으로 입력하세요"
+    >
+    <br>
+    <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
