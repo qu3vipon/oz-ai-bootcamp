@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    />
+    <title>To-do</title>
+</head>
+<body class="bg-light">
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <!-- Pomodoro -->
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body text-center">
+                    <h4 class="mb-3">Pomodoro Timer</h4>
+
+                    <div class="input-group mb-3">
+                        <input
+                        autocomplete="off"
+                        id="time-input"
+                        type="number"
+                        class="form-control"
+                        placeholder="분 단위 입력"
+                        />
+                        <button id="start-timer" class="btn btn-success">시작</button>
+                        <button id="stop-timer" class="btn btn-secondary">중지</button>
+                    </div>
+
+                    <div id="timer-display" class="fs-3 text-muted">시간을 설정하세요.</div>
+                    </div>
+                </div>
+
+                <!-- To-Do -->
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                    <h4 class="text-center mb-3">To-Do</h4>
+
+                    <div class="input-group mb-3">
+                        <input id="todo-input" class="form-control" placeholder="할 일 입력" />
+                        <button id="add-btn" class="btn btn-primary">추가</button>
+                    </div>
+
+                    <ul id="todo-list" class="list-group"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
