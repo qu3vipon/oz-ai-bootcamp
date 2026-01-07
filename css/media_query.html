@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .container {
+            display: flex;
+            gap: 10px
+        }
+
+        .box {
+            flex: 1;
+            height: 100px;
+            background-color: skyblue;
+            border: 1px solid black;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                flex-direction: column;
+
+            }
+        }
+    </style>
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="box item1">A</div>
+        <div class="box item2">B</div>
+        <div class="box item3">C</div>
+    </div>
+</body>
+
+</html>

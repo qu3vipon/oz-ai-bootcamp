@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text" id="name" placeholder="이름 입력.." autocomplete="off">
+    <p id="preview" style="color: red; font-size: 8px;"></p>
+
+    <script>
+        const input = document.querySelector("#name");
+        const preview = document.querySelector("#preview");
+
+        input.addEventListener("input", function () {
+            if (input.value.length < 3) {
+                preview.textContent = "최소 3글자 이상 입력하세요";
+            } else {
+                preview.textContent = "";
+            }
+        });
+    </script>
+
+</body>
+
+</html>

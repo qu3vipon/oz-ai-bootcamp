@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form action="#">
+        <input type="text" id="name" autocomplete="off" required>
+        <button type="submit">회원가입</button>
+    </form>
+
+    <script>
+        const input = document.querySelector("#name");
+        const button = document.querySelector("button");
+
+        button.addEventListener("click", function () {
+            if (input.value.trim() === "") {
+                alert("빈 문자열은 허용되지 않습니다.")
+            } else {
+                console.log(input.value);
+            }
+        });
+    </script>
+</body>
+
+</html>

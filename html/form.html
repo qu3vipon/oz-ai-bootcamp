@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- GET -->
+    <form id="SearchForm" action="https://google.com/search" method="get">
+        <input type="search" placeholder="Search..." name="q" autofocus autocomplete="off">
+        <button form="PostForm">전송</button>
+    </form>
+
+    <!-- POST -->
+    <form id="PostForm" action="https://httpbin.org/post" method="post">
+        <input type="text" placeholder="Username" name="username" autofocus autocomplete="off">
+        <button form="SearchForm">입력</button>
+    </form>
+</body>
+
+</html>

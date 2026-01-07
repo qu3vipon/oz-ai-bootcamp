@@ -1,0 +1,36 @@
+.contents {
+    text-align: center;
+}
+
+.header {
+    font: bold 2rem "Oswald", sans-serif;
+    margin-top: 1rem;
+}
+
+.contact-row {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    font-size: 0.9rem;
+}
+
+.github-link {
+    text-decoration: none;
+    color: gray;
+    display: inline-block;
+    margin-bottom: 1.2rem;
+}
+
+.github-link:hover {
+    text-decoration: underline;
+    color: orange;
+}
+
+.main {
+    font-size: 1.2rem;
+}
+
+.footer {
+    font-size: xx-small;
+    margin-top: 60vh;
+}

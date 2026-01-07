@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form action="">
+        <label for="email">Email</label>
+        <input id="email" required type="email" placeholder="example@email.com">
+        <br>
+        <label for="phone">Phone</label>
+
+        <input id="phone" required type="text" placeholder="010-1111-2222" pattern="^010-[0-9]{4}-[0-9]{4}$"
+            title="010-1111-2222 형식으로 입력하세요.">
+        <br>
+        <label for="password">Password</label>
+        <input id="password" required type="password" placeholder="Enter password..">
+        <br>
+        <button>제출</button>
+    </form>
+</body>
+
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="box" style="background-color: orange; width: 150px;">마우스를 올려보세요.</div>
+
+    <script>
+        const box = document.querySelector("#box");
+
+        box.addEventListener("mouseover", () => changeBackgroundColor("skyblue"));
+        box.addEventListener("mouseout", () => changeBackgroundColor("orange"));
+
+        function changeBackgroundColor(color) {
+            box.style.backgroundColor = color;
+        };
+    </script>
+</body>
+
+</html>
