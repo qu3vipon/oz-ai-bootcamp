@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="number" id="score" placeholder="점수 입력" autocomplete="off">
+    <button id="check">확인</button>
+    <p id="result"></p>
+
+    <script>
+        const scoreInput = document.querySelector("#score")
+        const button = document.querySelector("#check")
+        const result = document.querySelector("#result")
+
+        button.addEventListener("click", function () {
+            // 60점 이상이면 result에 합격, 60점 미만이면 불합격 출력
+            if (Number(scoreInput.value) >= 60) {
+                result.textContent = "합격"
+            } else {
+                result.textContent = "불합격"
+            }
+        })
+    </script>
+</body>
+
+</html>

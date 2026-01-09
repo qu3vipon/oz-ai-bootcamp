@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="start">카운트다운 시작</button>
+    <p id="time"></p>
+
+    <script>
+        const button = document.querySelector("#start")
+        const result = document.querySelector("#time")
+
+        let timerId = null;
+
+        button.addEventListener("click", function () {
+            if (timerId !== null) return;
+
+            let time = 5;
+            result.textContent = time;
+            button.disabled = true;
+
+            timerId = setInterval(executeInterval, 1000);
+
+            function executeInterval() {
+                time--;
+
+                if (time === 0) {
+                    clearInterval(timerId);
+                    result.textContent = "끝";
+                    timerId = null;
+                    button.disabled = false;
+                } else {
+                    result.textContent = time;
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
