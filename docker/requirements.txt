@@ -1,0 +1,5 @@
+fastapi[standard]
+sqlalchemy
+pymysql
+cryptography
+redis
