@@ -28,6 +28,7 @@ app = FastAPI()
 @app.post("/chats")
 async def generate_chat_api(user_input: str = Body(...)):
     async def event_generator():
+        # 추론 -> CPU Bound
         response = llm.create_chat_completion(
             messages=[
                 {"role": "system", "content": SYSTEM_PROMPT},
