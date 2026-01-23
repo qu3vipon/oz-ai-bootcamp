@@ -5,11 +5,16 @@ services:
       - "8000:8000"
     depends_on:
       - db
+      - redis
     volumes:
       - ./api:/app
 
   worker:
     build: ./worker
+    volumes:
+      - ./worker/models:/inference/models
+    depends_on:
+      - redis
 
   db:
     image: mysql:8.4
@@ -20,6 +25,11 @@ services:
       - "33060:3306"
     volumes:
       - db_data:/var/lib/mysql
+
+  redis:
+    image: redis:8
+    ports:
+      - "6379:6379"
 
 volumes:
   db_data:
