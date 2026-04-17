@@ -1,10 +1,10 @@
 import json
 import redis
-
 from llama_cpp import Llama
 
 
 redis_client = redis.from_url("redis://redis:6379", decode_responses=True)
+
 
 llm = Llama(
     model_path="./models/Llama-3.2-1B-Instruct-Q4_K_M.gguf",
@@ -21,47 +21,35 @@ SYSTEM_PROMPT = (
     "Do not mix languages."
 )
 
-def inference_and_publish(channel, user_input):
-    print("추론 시작...")
-    response = llm.create_chat_completion(
-        messages=[
-            {"role": "system", "content": SYSTEM_PROMPT},
-            {"role": "user", "content": user_input},
-        ],
-        max_tokens=256,
-        temperature=0.7,
-        stream=True,
-    )
-
-    for chunk in response:
-        token = chunk["choices"][0]["delta"].get("content")
-        if token:
-            redis_client.publish(channel, token)
-    
-    redis_client.publish(channel, "[DONE]")
-    print("추론 종료...")
-
 
 def run():
     while True:
-        # Queue를 확인해서, Job(job_id, input) 꺼내기
-        _, job_data = redis_client.brpop("inference_queue")
-        
-        job = json.loads(job_data)
+        # 1) Queue에서 task를 dequeue
+        _, task = redis_client.brpop("queue")
 
-        job_id = job["id"]
-        user_input = job["input"]
+        task_data: dict = json.loads(task)
 
-        channel = f"result:{job_id}"
+        # 2) (반복) 추론 -> 토큰 -> Publish
+        response_generator = llm.create_chat_completion(
+            messages=[
+                {"role": "system", "content": SYSTEM_PROMPT},
+                {"role": "user", "content": task_data["user_input"]},
+            ],
+            max_tokens=256,
+            temperature=0.7,
+            stream=True,
+        )
 
-        # 추론 & publish
-        try:
-            inference_and_publish(channel=channel, user_input=user_input)
-        except Exception as e:
-            print(f"[Error] {str(e)}")
-            redis_client.publish(channel, "[DONE]")
+        channel = task_data["channel"]
+        for chunk in response_generator:
+            token = chunk["choices"][0]["delta"].get("content")
+            if token:
+                redis_client.publish(channel, token)
+
+        # 3) 추론 종료 알림: [Done] 메시지 전송
+        redis_client.publish(channel, "[DONE]")
 
 
-# 이 파일을 직접한 실행한 경우에만, run() 호출
+# 이 파일이 직접 실행한 경우에만, run() 호출
 if __name__ == "__main__":
     run()
