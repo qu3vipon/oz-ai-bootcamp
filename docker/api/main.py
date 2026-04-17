@@ -1,5 +1,5 @@
-import json
 import uuid
+import json
 
 from fastapi import FastAPI, Body
 from fastapi.responses import StreamingResponse
@@ -10,40 +10,35 @@ redis_client = aredis.from_url("redis://redis:6379", decode_responses=True)
 
 app = FastAPI()
 
-@app.post("/generate")
-async def generate_api(user_input: str = Body(...)):
-    # job_id 생성
-    job_id = str(uuid.uuid4())
-    
-    # 결과 채널 구독
-    channel = f"result:{job_id}"
-
+@app.post("/chats")
+async def generate_chat_handler(
+    user_input: str = Body(..., embed=True),
+):
+    # 1) 요청 본문: user_input 
+    # 2) 채널 구독
+    channel = str(uuid.uuid4())
     pubsub = redis_client.pubsub()
     await pubsub.subscribe(channel)
-    print(f"구독 시작: {job_id}")
 
-    # Enqueue(LPUSH)
-    job = {"id": job_id, "input": user_input}
-    await redis_client.lpush("inference_queue", json.dumps(job))
-    print(f"큐에 작업 추가: {job}")
+    # 3) Queue를 통해 Worker에 Task를 전달(enqueue)
+    task = {"channel": channel, "user_input": user_input}
+    await redis_client.lpush("queue", json.dumps(task))
 
-    # 결과를 돌려받아서 응답
+    # 4) 채널 메시지 읽고, 토큰 반환
     async def event_generator():
-        print("Listening 시작...")
         async for message in pubsub.listen():
             if message["type"] != "message":
                 continue
-
-            data = message["data"]
-            if data == "[DONE]":
+            
+            token = message["data"]
+            if token == "[DONE]":
                 break
-            yield data
+            yield token
         
         await pubsub.unsubscribe(channel)
         await pubsub.close()
-        print("Listening 종료...")
 
     return StreamingResponse(
         event_generator(),
-        media_type="text/event-stream"
+        media_type="text/event-stream",
     )
