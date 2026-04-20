@@ -31,8 +31,8 @@ def run():
 
         messages = [{"role": "system", "content": SYSTEM_PROMPT}]
         messages.extend(task_data["messages"])
-      
-        # 2) LLM 호출
+
+        # 2) (반복) 추론 -> 토큰 -> Publish
         response_generator = llm.create_chat_completion(
             messages=messages,
             max_tokens=256,
@@ -40,14 +40,13 @@ def run():
             stream=True,
         )
 
-        # 3) streaming publish
-        channel = task_data["conversation_id"]
+        channel = task_data["channel"]
         for chunk in response_generator:
             token = chunk["choices"][0]["delta"].get("content")
             if token:
                 redis_client.publish(channel, token)
 
-        # 4) 종료 신호
+        # 3) 추론 종료 알림: [Done] 메시지 전송
         redis_client.publish(channel, "[DONE]")
 
 
