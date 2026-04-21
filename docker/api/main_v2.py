@@ -67,6 +67,7 @@ async def create_message_handler(
             content=user_input,
         )
         session.add(user_msg)
+        await session.flush()
 
         # 3) 이전 대화내역 조회
         stmt = (
