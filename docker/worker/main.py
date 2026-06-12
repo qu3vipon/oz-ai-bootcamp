@@ -3,8 +3,11 @@ import redis
 from llama_cpp import Llama
 
 
-redis_client = redis.from_url("redis://redis:6379", decode_responses=True)
-
+redis_client = redis.from_url(
+    "redis://redis:6379", 
+    decode_responses=True,
+    socket_timeout=None,
+)
 
 llm = Llama(
     model_path="./models/Llama-3.2-1B-Instruct-Q4_K_M.gguf",
